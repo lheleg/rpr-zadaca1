@@ -1,7 +1,5 @@
 package ba.unsa.etf.rpr;
 
-import static ba.unsa.etf.rpr.ExpressionEvaluator.*;
-
 /**
  * Entry point to our Dijkstra Algorithm program
  * @author Lejla Heleg
@@ -13,10 +11,13 @@ public class App
      * @param args array of Strings
      */
     public static void main( String[] args ) {
-        StringBuilder input = new StringBuilder();
-        for(String s : args){
-            input.append(s).append(" ");
+        String s = args[0];
+        s.trim();
+        try {
+            ExpressionEvaluator e = new ExpressionEvaluator();
+            System.out.println("The result is: " + e.evaluate(s));
+        }catch(RuntimeException e){
+            System.out.println("Your arithmetic expression is not valid!");
         }
-        System.out.println("The result is: " + Evaluate(String.valueOf(input)));
     }
 }

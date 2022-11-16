@@ -11,18 +11,19 @@ import java.util.Stack;
  */
 
 public class ExpressionEvaluator{
-    private static final Stack<String> operators = new Stack<>();
-    private static final Stack<Double> values = new Stack<>();
 
     /**
      * Evaluate method calculates value of expression using Dijkstra algorithm
      * @param str String
-     * @return calculated value of expression
+     * @return calculated value of the expression
+     * @throws RuntimeException if the String isn't correct
      */
-    public static Double Evaluate(String str){
+    public Double evaluate(String str){
+        Stack<String> operators = new Stack<>();
+        Stack<Double> values = new Stack<>();
         String[] arrOfStr = str.split(" ");
         for(String s : arrOfStr){
-            if(s.equals("(")) break;
+            if(s.equals("(")){}
             else if(s.equals("+")) operators.push(s);
             else if(s.equals("-")) operators.push(s);
             else if(s.equals("*")) operators.push(s);
@@ -31,14 +32,20 @@ public class ExpressionEvaluator{
             else if(s.equals(")")){
                 String opr = operators.pop();
                 Double val = values.pop();
-                if(s.equals("+")) val = values.pop() + val;
-                else if(s.equals("-")) val = values.pop() - val;
-                else if(s.equals("*")) val = values.pop() * val;
-                else if(s.equals("/")) val = values.pop() / val;
-                else if(s.equals("sqrt")) val = Math.sqrt(val);
+                if(opr.equals("+")) val = values.pop() + val;
+                else if(opr.equals("-")) val = values.pop() - val;
+                else if(opr.equals("*")) val = values.pop() * val;
+                else if(opr.equals("/")) val = values.pop() / val;
+                else if(opr.equals("sqrt")) val = Math.sqrt(val);
                 values.push(val);
             }
-            else values.push(Double.parseDouble(s));
+            else{
+               try {
+                    values.push(Double.parseDouble(s));
+               }catch (RuntimeException e){
+                   throw new RuntimeException();
+                }
+            }
         }
         return values.pop();
     }
