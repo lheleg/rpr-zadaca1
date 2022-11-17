@@ -21,7 +21,22 @@ public class ExpressionEvaluatorTest {
 
     @Test
     void evaluateTest3() {
+        //incorrect number of operands
         String s = "( 1 + ( 2 * ( + ) ) )";
         assertThrows(RuntimeException.class, () -> e.evaluate(s));
+    }
+
+    @Test
+    void evaluateTest4() {
+        //correct number of parentheses but incorrectly used
+        String s = "( 2 + () * 5 )";
+        assertThrows(RuntimeException.class, () -> e.evaluate(s));
+    }
+
+    @Test
+    void evaluateTest5() {
+        //test for sqrt
+        String s = "( ( sqrt ( 225 ) / 5 ) - 2 )";
+        assertEquals(1D, e.evaluate(s));
     }
 }
