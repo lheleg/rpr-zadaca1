@@ -39,4 +39,11 @@ public class ExpressionEvaluatorTest {
         String s = "( ( sqrt ( 225 ) / 5 ) - 2 )";
         assertEquals(1D, e.evaluate(s));
     }
+
+    @Test
+    void evaluateTest6() {
+        //empty string
+        String s = "";
+        assertThrows(RuntimeException.class, () -> e.evaluate(s));
+    }
 }
