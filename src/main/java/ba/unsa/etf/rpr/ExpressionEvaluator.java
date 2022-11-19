@@ -22,14 +22,16 @@ public class ExpressionEvaluator{
         Stack<String> operators = new Stack<>();
         Stack<Double> values = new Stack<>();
         String[] arrOfStr = str.split(" ");
+        int parentheses = 0;
         for(String s : arrOfStr){
-            if(s.equals("(")){}
+            if(s.equals("(")){ parentheses = parentheses - 1;}
             else if(s.equals("+")) operators.push(s);
             else if(s.equals("-")) operators.push(s);
             else if(s.equals("*")) operators.push(s);
             else if(s.equals("/")) operators.push(s);
             else if(s.equals("sqrt")) operators.push(s);
             else if(s.equals(")")){
+                parentheses = parentheses + 1;
                 String opr = operators.pop();
                 Double val = values.pop();
                 if(opr.equals("+")) val = values.pop() + val;
@@ -46,6 +48,11 @@ public class ExpressionEvaluator{
                    throw new RuntimeException();
                 }
             }
+        }
+        try {
+            if (parentheses != 0) throw new RuntimeException();
+        }catch(RuntimeException e){
+            throw new RuntimeException();
         }
         return values.pop();
     }

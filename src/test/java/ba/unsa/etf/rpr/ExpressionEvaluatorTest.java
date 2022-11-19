@@ -46,4 +46,16 @@ public class ExpressionEvaluatorTest {
         String s = "";
         assertThrows(RuntimeException.class, () -> e.evaluate(s));
     }
+
+    @Test
+    void evaluateTest7(){
+        String s = "( 1 + a - b )";
+        assertThrows(RuntimeException.class, () -> e.evaluate(s));
+    }
+
+    @Test
+    void evaluateTest8(){
+        String s = "( ( 1 + 2 )";
+        assertThrows(RuntimeException.class, () -> e.evaluate(s));
+    }
 }
